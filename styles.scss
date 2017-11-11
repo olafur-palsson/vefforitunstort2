@@ -1,7 +1,12 @@
-html {
+body {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	background-color: black;
-	height:100vh;
-	width: 100vh;
+	color: white;
+	font-family: 'Roboto Condensed', sans-serif;
+	max-width: 1200px;
 }
 
-@import "card.scss";
+@import "scss/cards.scss";
+@import "scss/videosection";
