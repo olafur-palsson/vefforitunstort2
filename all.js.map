@@ -1,1 +1,1 @@
-{"version":3,"sources":["es6scripts.js"],"names":[],"mappings":";;AAAA,QAAQ,GAAR,CAAY,aAAZ","file":"all.js","sourcesContent":["console.log(\"hello world\")"]}
+{"version":3,"sources":["es6scripts.js"],"names":[],"mappings":";;AAAA,QAAQ,GAAR,CAAY,aAAZ;AACA,QAAQ,GAAR,CAAY,iBAAZ","file":"all.js","sourcesContent":["console.log(\"hello world\")\r\nconsole.log(\"that's bullshit\")"]}
