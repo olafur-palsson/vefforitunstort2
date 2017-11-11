@@ -1,0 +1,1 @@
+{"version":3,"sources":["es6scripts.js"],"names":[],"mappings":";;AAAA,QAAQ,GAAR,CAAY,aAAZ","file":"all.js","sourcesContent":["console.log(\"hello world\")"]}
