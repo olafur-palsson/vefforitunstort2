@@ -1,5 +1,6 @@
 (() => {
   const makeVideoCard = (videoID) => {
+    console.log(videoID)
     const card    = document.createElement("div")
     const video   = document.createElement("video")
     const heading = document.createElement("h2")
@@ -23,6 +24,8 @@
     card.appendChild(heading)
     card.appendChild(text)
 
+    console.log("Does it work bruh " + jsonObject)
+
     return card
   }
 
@@ -44,9 +47,35 @@
     return "Súrt dæmi"
   }
 
-  const getJSON = () => {
-    const reader = new FileReader()
+  let jsonObject;
+
+  (() => {
+    const xml = new XMLHttpRequest
+    xml.open("GET", "videos.json", true)
+    xml.send(null)
+    xml.onreadystatechange = () => {
+
+      //vanter handler fyrir OK get kóða
+      const JSONtext = xml.responseText
+      console.log("blablabla response")
+      jsonObject = JSON.parse(JSONtext)
+      render()
+    }
+  })();
+
+  const render = () => {
+    const categories = jsonObject.categories
+    const videos     = jsonObject.videos
+
+    videos.forEach((index) => {
+      document.querySelector(".body").appendChild(
+        makeVideoCard(index.id)
+      )
+    })
+
+    console.log(videos)
   }
+
 
   //test
   (() => {
