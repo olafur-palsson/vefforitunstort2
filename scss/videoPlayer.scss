@@ -1,0 +1,50 @@
+.videoPlayer {
+  display: none;
+  box-sizing: content-box;
+  padding: 5vh;
+
+  &__video {
+  }
+
+  &__controls {
+    max-height: 5rem;
+    display:flex;
+    justify-content: space-around;
+
+    &__mute {
+      display: block;
+      max-width: 5rem;
+    }
+
+    &__unmute {
+      display: none;
+      max-width: 5rem;
+    }
+
+    &__play {
+      display: block;
+      max-width: 5rem;
+    }
+
+    &__pause {
+      display: none;
+      max-width: 5rem;
+    }
+    
+    &__back {
+      display: block;
+      max-width: 5rem;
+    }
+
+    &__fullscreen {
+      display: block;
+      max-width: 5rem;
+    }
+
+    &__forward {
+      display: block;
+      transform: scaleX(-1);
+      max-width: 5rem;
+    }
+  }
+}
