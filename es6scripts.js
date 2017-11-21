@@ -25,6 +25,19 @@
   const getHeading = (videoID) => {
     return getVideo(videoID).title
   }
+  
+  const formatTime = (videoID) => {
+    const thenTime = getFormattedTime(videoID);
+    const nowTime = new Date().getTime();
+    const diffTime =  (nowTime - thenTime)/1000;
+    if (diffTime > 31540000){return "fyrir" + Math.floor(diffTime/31540000) + "árum síðan";}
+    else if (diffTime > 2419000){return "fyrir" + Math.floor(diffTime/2419000) + "mánuðum síðan";}
+      else if (diffTime > 86400){return "fyrir" + Math.floor(diffTime/86400) + "dögum síðan";}
+      else if (diffTime > 3600){return "fyrir" + Math.floor(diffTime/3600) + "klukkustundum síðan";}
+      else if (diffTime > 60){return "fyrir" + Math.floor(diffTime/60) + "mínútum síðan";}
+      else {return "fyrir" + Math.floor(diffTime) + "sekúndum síðan";}
+  }
+
 
   const makeVideoCard = (videoID) => {
     const card    = document.createElement("div")
@@ -85,18 +98,12 @@
     return videoSection
   }
 
-  const makeDivider = () => {
-    const divider = document.createElement("div")
-    divider.classList.add("allVideos__divider")
-    return divider
-  }
-
   let allVideos;
 
   const renderEverything = () => {
     const categories = videosJSON.categories
     const videos     = videosJSON.videos
-    allVideos = document.createElement("div")
+    allVideos = document.createElement("section")
 
     const categoryElements = categories.map((category) => {
       return makeCategory(category.title, category.videos)
@@ -105,8 +112,7 @@
     allVideos.classList.add("allVideos")
     document.querySelector(".body").appendChild(allVideos)
 
-    categoryElements.forEach((categoryElement, i) => {
-      if(i != 0) allVideos.appendChild(makeDivider())
+    categoryElements.forEach((categoryElement) => {
       allVideos.appendChild(categoryElement)
     })
   }
@@ -144,7 +150,7 @@
     const showElement = (element1.style.display == displayValue)
     element1.style.display = (showElement)  ? "none" : displayValue
     element2.style.display = (!showElement) ? "none" : displayValue
-    
+
   }
 
   const playPause = (video) => {
@@ -156,7 +162,7 @@
     const play       = getControlButton("play")
     const pause      = getControlButton("pause")
     const mute       = getControlButton("mute")
-    const unmute     = getControlButton("unmute")    
+    const unmute     = getControlButton("unmute")
     const back       = getControlButton("back")
     const forward    = getControlButton("forward")
     const fullscreen = getControlButton("fullscreen")
@@ -205,12 +211,12 @@
     const source = document.createElement("source")
 
     source.setAttribute("src" , getVideoPath(videoID))
-    source.setAttribute("type", "video/mp4")  
+    source.setAttribute("type", "video/mp4")
 
     videoPlayerHeading.innerHTML = getHeading(videoID)
 
     video           .appendChild(source)
-    videoPlayerVideo.appendChild(video) 
+    videoPlayerVideo.appendChild(video)
 
     bindControlsTo(video)
 
