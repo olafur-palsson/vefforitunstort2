@@ -85,12 +85,18 @@
     return videoSection
   }
 
+  const makeDivider = () => {
+    const divider = document.createElement("div")
+    divider.classList.add("allVideos__divider")
+    return divider
+  }
+
   let allVideos;
 
   const renderEverything = () => {
     const categories = videosJSON.categories
     const videos     = videosJSON.videos
-    allVideos = document.createElement("section")
+    allVideos = document.createElement("div")
 
     const categoryElements = categories.map((category) => {
       return makeCategory(category.title, category.videos)
@@ -99,7 +105,8 @@
     allVideos.classList.add("allVideos")
     document.querySelector(".body").appendChild(allVideos)
 
-    categoryElements.forEach((categoryElement) => {
+    categoryElements.forEach((categoryElement, i) => {
+      if(i != 0) allVideos.appendChild(makeDivider())
       allVideos.appendChild(categoryElement)
     })
   }
