@@ -1,0 +1,16 @@
+.outer{
+
+  position: relative;
+  width: 20%;
+  height: 100px;
+  background-image: url("http://www.gstatic.com/webp/gallery/1.jpg");
+}
+.inner{
+  position:absolute;
+  width 20px;
+  right: 2%;
+  top:70%;
+  height: 20px;
+  color: white;
+  background-color: rgba(30, 30, 30, 0.6);
+}
