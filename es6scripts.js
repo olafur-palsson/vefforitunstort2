@@ -115,7 +115,7 @@
     categoryElements.forEach((categoryElement, i) => {
       if(i != 0) allVideos.appendChild(makeDivider())
       allVideos.appendChild(categoryElement)
-    })
+    }) 
   }
 
   const removeChildren = (node) => {
@@ -151,7 +151,7 @@
     const showElement = (element1.style.display == displayValue)
     element1.style.display = (showElement)  ? "none" : displayValue
     element2.style.display = (!showElement) ? "none" : displayValue
-    
+
   }
 
   const playPause = (video) => {
@@ -163,7 +163,7 @@
     const play       = getControlButton("play")
     const pause      = getControlButton("pause")
     const mute       = getControlButton("mute")
-    const unmute     = getControlButton("unmute")    
+    const unmute     = getControlButton("unmute")
     const back       = getControlButton("back")
     const forward    = getControlButton("forward")
     const fullscreen = getControlButton("fullscreen")
@@ -219,7 +219,7 @@
     videoPlayerHeading.innerHTML = getHeading(videoID)
 
     video           .appendChild(source)
-    videoPlayerVideo.appendChild(video) 
+    videoPlayerVideo.appendChild(video)
 
     bindControlsTo(video)
 
@@ -241,5 +241,4 @@
       }
     }
   })();
-
 })()
