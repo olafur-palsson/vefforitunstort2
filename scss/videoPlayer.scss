@@ -1,15 +1,26 @@
 .videoPlayer {
   display: none;
-  box-sizing: content-box;
-  padding: 5vh;
+  box-sizing: border-box;
+  background-color: $gray;
+  width: 100vw;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+
 
   &__video {
+    max-width: 90vw;
+    max-height: 90vh;
   }
 
   &__controls {
-    max-height: 5rem;
+    flex-grow: 5;
+    padding: 10px;
     display:flex;
     justify-content: space-around;
+    height: 4rem;
 
     &__mute {
       display: block;

@@ -18,9 +18,16 @@
   }
 
   const getFormattedTime = (videoID) => {
-    const time = getVideo(videoID).created
-    return time
-  }
+    const thenTime = getVideo(videoID).created;
+    const nowTime = new Date().getTime();
+    const diffTime =  (nowTime - thenTime)/1000;
+    if (diffTime > 31540000){     return "Fyrir " + Math.floor(diffTime/31540000) + " árum síðan";}
+    else if (diffTime > 2419000){ return "Fyrir " + Math.floor(diffTime/2419000) + " mánuðum síðan";}
+    else if (diffTime > 86400){   return "Fyrir " + Math.floor(diffTime/86400) + " dögum síðan";}
+    else if (diffTime > 3600){    return "Fyrir " + Math.floor(diffTime/3600) + " klukkustundum síðan";}
+    else if (diffTime > 60){      return "Fyrir " + Math.floor(diffTime/60) + " mínútum síðan";}
+    else {                        return "Fyrir " + Math.floor(diffTime) + " sekúndum síðan";}
+}
 
   const getHeading = (videoID) => {
     return getVideo(videoID).title
@@ -122,7 +129,7 @@
 
   const showVideoPlayer = (yes) => {
     const allVideos = document.querySelector(".allVideos")
-    videoPlayer.style.display = (yes) ? "block" : "none"
+    videoPlayer.style.display = (yes) ? "flex" : "none"
     allVideos  .style.display = (yes) ? "none"  : "block"
     if(!yes) {
       removeChildren(videoPlayerVideo)
@@ -206,6 +213,8 @@
 
     source.setAttribute("src" , getVideoPath(videoID))
     source.setAttribute("type", "video/mp4")  
+    video .setAttribute("width" , "100%")
+    video .setAttribute("height", "100%")
 
     videoPlayerHeading.innerHTML = getHeading(videoID)
 

@@ -1,0 +1,14 @@
+.allVideos {
+	background-color: $gray;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	&__divider {
+		width: 100%;
+		background-color: white;
+		padding-top: 3px;
+		margin: 4rem 0;
+	}
+}
