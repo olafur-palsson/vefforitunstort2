@@ -235,8 +235,6 @@
 
     source.setAttribute("src" , getVideoPath(videoID))
     source.setAttribute("type", "video/mp4")  
-    video .setAttribute("width" , "100%")
-    video .setAttribute("height", "100%")
 
     videoPlayerHeading.innerHTML = getHeading(videoID)
 

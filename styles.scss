@@ -14,7 +14,11 @@ p {
 	margin: 0;
 }
 
-
+video {
+	width: 100px;
+	height: 100%;
+	object-fit: cover;
+}
 
 
 /*      Hide vidoeo for coding player      */ 
