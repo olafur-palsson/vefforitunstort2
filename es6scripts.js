@@ -17,6 +17,28 @@
     return getVideo(videoID).poster
   }
 
+  function durationToString(videoID){
+    const duration = getVideo(videoID).duration;
+    const seconds = (duration%60<10) ? "0" + duration%60 : duration%60
+
+    return Math.floor(duration/60) + ":" + seconds;
+  }
+
+  function createDivs(classNamer){
+    var createDiv = document.createElement("div");
+    createDiv.className = classNamer;
+    return createDiv;
+  }
+
+  function createPicture (videoID){
+    const className = "cards__singleCard__video__"
+    const outerDiv = createDivs(className + "outer");
+    const innerDiv = createDivs(className + "inner");
+    innerDiv.appendChild(document.createTextNode(durationToString(videoID)));
+    outerDiv.appendChild(innerDiv)
+    return outerDiv;
+  }
+
   const getFormattedTime = (videoID) => {
     const thenTime = getVideo(videoID).created;
     const nowTime = new Date().getTime();
@@ -27,7 +49,7 @@
     else if (diffTime > 3600){    return "Fyrir " + Math.floor(diffTime/3600) + " klukkustundum síðan";}
     else if (diffTime > 60){      return "Fyrir " + Math.floor(diffTime/60) + " mínútum síðan";}
     else {                        return "Fyrir " + Math.floor(diffTime) + " sekúndum síðan";}
-}
+  }
 
   const getHeading = (videoID) => {
     return getVideo(videoID).title
@@ -35,12 +57,12 @@
 
   const makeVideoCard = (videoID) => {
     const card    = document.createElement("div")
-    const video   = document.createElement("img")
+    const video   = createPicture(videoID)
     const heading = document.createElement("h2")
     const text    = document.createElement("p")
 
+    //video has already the classes "cards__singleCard__video__outer"
     card    .classList.add("cards__singleCard")
-    video   .classList.add("cards__singleCard__video")
     heading .classList.add("cards__singleCard__heading")
     text    .classList.add("cards__singleCard__time")
 
@@ -51,7 +73,7 @@
     timeText    = document.createTextNode(timeText)
     headingText = document.createTextNode(headingText)
 
-    video.setAttribute("src", imagePath)
+    video.style.backgroundImage = "url(" + getPosterPath(videoID) + ")"
     video.addEventListener("click", () => {
       console.log("playVideo " + videoID)
       playVideo(videoID)
