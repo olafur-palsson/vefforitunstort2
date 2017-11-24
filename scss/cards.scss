@@ -7,6 +7,7 @@
 	flex-wrap: wrap;
 
 	&__singleCard {
+		cursor: pointer;
 		display: flex;
 		box-sizing: border-box;
 		width: 45%;
@@ -18,12 +19,20 @@
 			height: 100%;
 		}
 
-		&__video__outer {
-		padding-top:56.25%;
-		background-size: cover;
-		background-position: center;
-			min-width: 50%;
-			height: 80%;
+		&__video {
+			&__outer {
+				display: flex;
+				padding-top:56.25%;
+				background-size: cover;
+				background-position: center;
+				min-width: 50%;
+				height: 80%;
+			}
+
+			&__inner {
+				padding: 3px;
+				background-color: rgba(30, 30, 30, 0.7);
+			}
 		}
 	}
 }

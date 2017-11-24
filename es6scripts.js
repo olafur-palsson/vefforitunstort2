@@ -97,7 +97,7 @@
       return makeVideoCard(index)
     })
 
-    videoSection.classList.add("videos__section")
+    videoSection.classList.add("allVideos__section")
     cards       .classList.add("cards")
     heading     .classList.add("h1")
 
@@ -114,9 +114,12 @@
     return videoSection
   }
 
-  const makeDivider = () => {
+  const makeDivider = (notHiddenDivider) => {
     const divider = document.createElement("div")
-    divider.classList.add("allVideos__divider")
+    const show = "allVideos__divider"
+    const hide = "allVideos__dividerHidden"
+    divider.classList.add((notHiddenDivider) ? show : hide)
+    if(notHiddenDivider) divider.classList.add("allVideos__divider")
     return divider
   }
 
@@ -127,6 +130,7 @@
     const videos     = videosJSON.videos
     allVideos = document.createElement("div")
 
+
     const categoryElements = categories.map((category) => {
       return makeCategory(category.title, category.videos)
     })
@@ -135,14 +139,13 @@
     document.querySelector(".body").appendChild(allVideos)
 
     categoryElements.forEach((categoryElement, i) => {
-      if(i != 0) allVideos.appendChild(makeDivider())
+      allVideos.appendChild(makeDivider(i))
       allVideos.appendChild(categoryElement)
     }) 
   }
 
   const removeChildren = (node) => {
-    while(node.hasChildNodes())
-      node.removeChild(node.firstChild)
+    delete node.firstChild
   }
 
   const videoPlayer        = document.querySelector(".videoPlayer")
@@ -151,22 +154,33 @@
 
   const showVideoPlayer = (yes) => {
     const allVideos = document.querySelector(".allVideos")
-    videoPlayer.style.display = (yes) ? "flex" : "none"
-    allVideos  .style.display = (yes) ? "none"  : "block"
+    console.log("is yes " + yes)
     if(!yes) {
       removeChildren(videoPlayerVideo)
+      videoPlayer.removeAttribute("style")
+      allVideos  .removeAttribute("style")
+    } else {
+      videoPlayer.style.display = "flex"
+      allVideos  .style.display = "none"
     }
   }
-
-  const goBackToMenu = () => { showVideoPlayer(false) }
-  (() => {
-    const goBackButton = document.querySelector(".videoPlayer__goBack")
-    goBackButton.addEventListener("click", goBackToMenu)
-  })();
-
+  
   const getControlButton = (buttonName) => {
     return document.querySelector(".videoPlayer__controls__" + buttonName)
   }
+
+  const removeDisplayStyle = (element) => {
+    element.style.display = ""
+  }
+
+  const goBackToMenu = () => { 
+    location.reload()
+  }
+
+  ;(() => {
+    const goBackButton = document.querySelector(".videoPlayer__goBack")
+    goBackButton.addEventListener("click", goBackToMenu)
+  })();
 
   const flipElements = (element1, element2, displayValue) => {
     if(element1.style.display == "") element1.style.display = "block"
@@ -174,11 +188,6 @@
     element1.style.display = (showElement)  ? "none" : displayValue
     element2.style.display = (!showElement) ? "none" : displayValue
 
-  }
-
-  const playPause = (video) => {
-    const isPlaying = (!video.paused)
-    return (isPlaying) ? video.play() : video.pause()
   }
 
   const bindControlsTo = (video) => {
@@ -190,56 +199,64 @@
     const forward    = getControlButton("forward")
     const fullscreen = getControlButton("fullscreen")
 
-    play   .addEventListener("click", () => {
+    const videoPlayIcon = document.querySelector(".videoPlayer__video__videoPlayIcon")
+
+    const playPause = () => {
       flipElements(play, pause, "block")
-      video.play()
-    })
+      if(video.paused) { video.play() ; videoPlayIcon.style.display = "none"}
+      else             { video.pause(); videoPlayIcon.style.display = "flex"}
+    }
 
-    pause  .addEventListener("click", () => {
-      flipElements(play, pause, "block")
-      video.pause()
-    })
-
-    mute   .addEventListener("click", () => {
+    const muteUnmute = () => {
       flipElements(mute, unmute, "block")
-      video.muted = true
-    })
+      video.muted = !video.muted;
+    }
 
-    unmute .addEventListener("click", () => {
-      flipElements(mute, unmute, "block")
-      video.muted = false
-    })
+    video.onended = () => {
+      play.style.display = "block"
+      pause.style.display = "none"
+      videoPlayIcon.style.display = 'block'
+    }
 
-    back   .addEventListener("click", () => {
-      video.currentTime -= 3
-    })
-
-    forward.addEventListener("click", () => {
-      video.currentTime += 3
-    })
-
-    fullscreen.addEventListener("click", () => {
+    videoPlayIcon.addEventListener("click", playPause)
+    video        .addEventListener("click", playPause)
+    play         .addEventListener("click", playPause)
+    pause        .addEventListener("click", playPause)
+    mute         .addEventListener("click", muteUnmute)
+    unmute       .addEventListener("click", muteUnmute)
+    back         .addEventListener("click", () => { video.currentTime -= 3 })
+    forward      .addEventListener("click", () => { video.currentTime += 3 })
+    fullscreen   .addEventListener("click", () => {
       if (video.requestFullscreen) {
         video.requestFullscreen();
       } else if (video.mozRequestFullScreen) {
-        video.mozRequestFullScreen(); // Firefox
+        video.mozRequestFullScreen();
       } else if (video.webkitRequestFullscreen) {
-        video.webkitRequestFullscreen(); // Chrome and Safari
+        video.webkitRequestFullscreen();
       }
     })
   }
 
+
+
   const playVideo = (videoID) => {
-    const video = document.createElement("video")
-    const source = document.createElement("source")
+    const video    = document.createElement("video")
+    const source   = document.createElement("source")
+    const playIcon = document.createElement("img")
+
+    video   .classList.add("videoPlayer__video__video")
+    playIcon.classList.add("videoPlayer__video__videoPlayIcon")
 
     source.setAttribute("src" , getVideoPath(videoID))
     source.setAttribute("type", "video/mp4")  
+
+    playIcon.setAttribute("src", "img/play.svg")
 
     videoPlayerHeading.innerHTML = getHeading(videoID)
 
     video           .appendChild(source)
     videoPlayerVideo.appendChild(video)
+    videoPlayerVideo.appendChild(playIcon)
 
     bindControlsTo(video)
 
