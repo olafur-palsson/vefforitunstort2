@@ -1,13 +1,13 @@
 .videoPlayer {
   display: none;
-  box-sizing: border-box;
-  background-color: $gray;
   width: 100vw;
   height: 100vh;
+  box-sizing: border-box;
+  padding: 20px;
   flex-direction: column;
+  background-color: $gray;
   justify-content: center;
   align-items: center;
-  padding: 20px;
 
   &__heading {
     margin-top: 0;
@@ -17,43 +17,40 @@
     cursor: pointer;
   }
 
-
   &__video {
-    height: 100%;
     position: relative;
-    width: 100%;
-    max-height: 70vh;
-    max-width: 90vw;
-    object-fit: contain;
     display: flex;
+    width: 100%;
+    max-width: 90vw;
+    height: 100%;
+    max-height: 70vh;
+    object-fit: contain;
     flex-grow: 2;
     justify-content: center;
-    display: flex;
     align-items: center;
-    justify-content: center;
 
     &__video {
-      object-fit: contain;
-      max-height: 100%;
       max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
     }
 
     &__videoPlayIcon {
-        position: absolute;
-        height: 10%;
-        width: 10%;
+      position: absolute;
+      width: 10%;
+      height: 10%;
     }
   }
 
   &__controls {
-    min-height: 2rem;
-    flex-grow: 5;
-    padding: 10px;
-    display:flex;
-    justify-content: space-around;
-    height: 8vh;
-    max-width: 100vw;
     position: relative;
+    display: flex;
+    max-width: 100vw;
+    height: 8vh;
+    min-height: 2rem;
+    padding: 10px;
+    flex-grow: 5;
+    justify-content: space-around;
 
     &__mute {
       display: block;
@@ -74,7 +71,7 @@
       display: none;
       max-width: 5rem;
     }
-    
+
     &__back {
       display: block;
       max-width: 5rem;
@@ -87,8 +84,8 @@
 
     &__forward {
       display: block;
-      transform: scaleX(-1);
       max-width: 5rem;
+      transform: scaleX(-1);
     }
   }
 }

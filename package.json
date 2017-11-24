@@ -4,8 +4,8 @@
   "description": "Stórt verkefni 2",
   "main": ".eslintrc.js",
   "scripts": {
-    "eslint": "eslint script.js",
-    "stylelint": "stylelint *.scss scss/*.scss --syntax scss",
+    "eslint": "eslint --fix es6scripts.js",
+    "stylelint": "stylelint --fix *.scss scss/*.scss --syntax scss",
     "lint": "npm-run-all --parallel eslint stylelint",
     "babel": "babel es6scripts.js --watch --out-file all.js --source-maps",
     "browser-sync": "browser-sync start --server --files index.html styles.css script-compiled.js",

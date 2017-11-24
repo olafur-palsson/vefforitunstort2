@@ -1,17 +1,13 @@
-body {
-	margin: 0;
-	display: flex;
-  	box-sizing: content-box;
-	flex-direction: column;
-	align-items: center;
-	background-color: black;
-	color: white;
-	font-family: 'Roboto Condensed', sans-serif;
-	max-width: 100vw;
-}
-
-p {
-	margin: 0;
+.body {
+  display: flex;
+  max-width: 100vw;
+  box-sizing: content-box;
+  margin: 0;
+  font-family: "Roboto Condensed", sans-serif;
+  color: #fff;
+  flex-direction: column;
+  align-items: center;
+  background-color: #000;
 }
 
 @import "scss/variables.scss";
