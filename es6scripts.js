@@ -43,12 +43,12 @@
     const thenTime = getVideo(videoID).created;
     const nowTime = new Date().getTime();
     const diffTime =  (nowTime - thenTime)/1000;
-    if (diffTime > 31540000){     return "Fyrir " + Math.floor(diffTime/31540000) + " árum síðan";}
-    else if (diffTime > 2419000){ return "Fyrir " + Math.floor(diffTime/2419000) + " mánuðum síðan";}
-    else if (diffTime > 86400){   return "Fyrir " + Math.floor(diffTime/86400) + " dögum síðan";}
-    else if (diffTime > 3600){    return "Fyrir " + Math.floor(diffTime/3600) + " klukkustundum síðan";}
-    else if (diffTime > 60){      return "Fyrir " + Math.floor(diffTime/60) + " mínútum síðan";}
-    else {                        return "Fyrir " + Math.floor(diffTime) + " sekúndum síðan";}
+    if (diffTime > 31540000){     return "Fyrir " + Math.floor(diffTime/31540000) + " árum síðan"         ;}
+    else if (diffTime > 2419000){ return "Fyrir " + Math.floor(diffTime/2419000)  + " mánuðum síðan"      ;}
+    else if (diffTime > 86400){   return "Fyrir " + Math.floor(diffTime/86400)    + " dögum síðan"        ;}
+    else if (diffTime > 3600){    return "Fyrir " + Math.floor(diffTime/3600)     + " klukkustundum síðan";}
+    else if (diffTime > 60){      return "Fyrir " + Math.floor(diffTime/60)       + " mínútum síðan"      ;}
+    else {                        return "Fyrir " + Math.floor(diffTime)          + " sekúndum síðan"     ;}
   }
 
   const getHeading = (videoID) => {
@@ -56,8 +56,8 @@
   }
 
   const makeVideoCard = (videoID) => {
-    const card    = document.createElement("div")
     const video   = createPicture(videoID)
+    const card    = document.createElement("div")
     const heading = document.createElement("h2")
     const text    = document.createElement("p")
 
@@ -74,10 +74,8 @@
     headingText = document.createTextNode(headingText)
 
     video.style.backgroundImage = "url(" + getPosterPath(videoID) + ")"
-    video.addEventListener("click", () => {
-      console.log("playVideo " + videoID)
-      playVideo(videoID)
-    })
+
+    video.addEventListener("click", () => { playVideo(videoID) })
 
     heading.appendChild(headingText)
     text   .appendChild(timeText)
@@ -125,11 +123,10 @@
 
   let allVideos;
 
-  const renderEverything = () => {
+  const renderVideoMenu = () => {
     const categories = videosJSON.categories
     const videos     = videosJSON.videos
     allVideos = document.createElement("div")
-
 
     const categoryElements = categories.map((category) => {
       return makeCategory(category.title, category.videos)
@@ -144,43 +141,19 @@
     }) 
   }
 
-  const removeChildren = (node) => {
-    delete node.firstChild
-  }
-
   const videoPlayer        = document.querySelector(".videoPlayer")
   const videoPlayerVideo   = document.querySelector(".videoPlayer__video")
   const videoPlayerHeading = document.querySelector(".videoPlayer__heading")
 
-  const showVideoPlayer = (yes) => {
+  const showVideoPlayer = () => {
     const allVideos = document.querySelector(".allVideos")
-    console.log("is yes " + yes)
-    if(!yes) {
-      removeChildren(videoPlayerVideo)
-      videoPlayer.removeAttribute("style")
-      allVideos  .removeAttribute("style")
-    } else {
-      videoPlayer.style.display = "flex"
-      allVideos  .style.display = "none"
-    }
+    videoPlayer.style.display = "flex"
+    allVideos  .style.display = "none"
   }
   
   const getControlButton = (buttonName) => {
     return document.querySelector(".videoPlayer__controls__" + buttonName)
   }
-
-  const removeDisplayStyle = (element) => {
-    element.style.display = ""
-  }
-
-  const goBackToMenu = () => { 
-    location.reload()
-  }
-
-  ;(() => {
-    const goBackButton = document.querySelector(".videoPlayer__goBack")
-    goBackButton.addEventListener("click", goBackToMenu)
-  })();
 
   const flipElements = (element1, element2, displayValue) => {
     if(element1.style.display == "") element1.style.display = "block"
@@ -198,7 +171,7 @@
     const back       = getControlButton("back")
     const forward    = getControlButton("forward")
     const fullscreen = getControlButton("fullscreen")
-
+    const goBackButton  = document.querySelector(".videoPlayer__goBack")
     const videoPlayIcon = document.querySelector(".videoPlayer__video__videoPlayIcon")
 
     const playPause = () => {
@@ -212,12 +185,17 @@
       video.muted = !video.muted;
     }
 
+    const goBackToMenu = () => {
+      location.reload()
+    }
+
     video.onended = () => {
       play.style.display = "block"
       pause.style.display = "none"
       videoPlayIcon.style.display = 'block'
     }
 
+    goBackButton .addEventListener("click", goBackToMenu)
     videoPlayIcon.addEventListener("click", playPause)
     video        .addEventListener("click", playPause)
     play         .addEventListener("click", playPause)
@@ -237,8 +215,6 @@
     })
   }
 
-
-
   const playVideo = (videoID) => {
     const video    = document.createElement("video")
     const source   = document.createElement("source")
@@ -248,7 +224,7 @@
     playIcon.classList.add("videoPlayer__video__videoPlayIcon")
 
     source.setAttribute("src" , getVideoPath(videoID))
-    source.setAttribute("type", "video/mp4")  
+    source.setAttribute("type", "video/mp4")
 
     playIcon.setAttribute("src", "img/play.svg")
 
@@ -259,8 +235,7 @@
     videoPlayerVideo.appendChild(playIcon)
 
     bindControlsTo(video)
-
-    showVideoPlayer(true)
+    showVideoPlayer()
   }
 
 
@@ -274,7 +249,7 @@
         const JSONtext = xml.responseText
         console.log("I have the JSON file! I really have it this time :d")
         videosJSON = JSON.parse(JSONtext)
-        renderEverything() // Þetta bókstaflega keyrir allt
+        renderVideoMenu() // ENTRY POINT FYRIR KEYRSLU
       }
     }
   })();
