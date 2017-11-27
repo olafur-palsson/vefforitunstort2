@@ -2,10 +2,11 @@
   let videosJSON;
 
   const getVideo = (videoID) => {
-    let theVideoRequested;
+    let theVideoRequested = "none";
     videosJSON.videos.forEach((video) => {
       if (video.id === videoID) theVideoRequested = video
     })
+    if(theVideoRequested == "none") {alert("Myndband númer " + videoID + " fannst ekki"); return 1}
     return theVideoRequested
   }
 
