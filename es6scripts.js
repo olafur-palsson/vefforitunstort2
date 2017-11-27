@@ -211,10 +211,13 @@
   const renderVideoMenu = () => {
     const categoryArray = videosJSON.categories
     allVideos = document.createElement('div')
-
+    const menuHeading     = document.createElement("h1")
+    const menuHeadingText = document.createTextNode("Myndabandaleigan")
+    menuHeading.appendChild(menuHeadingText)
     const categoryElements = categoryArray.map(category => makeCategory(category.title, category.videos))
 
     allVideos.classList.add('allVideos')
+    allVideos.appendChild(menuHeading)
     document.querySelector('.body').appendChild(allVideos)
 
     categoryElements.forEach((categoryElement, i) => {
