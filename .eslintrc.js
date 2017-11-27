@@ -12,5 +12,6 @@ module.exports = {
     'brace-style': 0,
     'no-param-reassign': 0,
     'max-len': 0,
+    'no-alert': 0,
   }
 };

@@ -2,11 +2,11 @@
   let videosJSON;
 
   const getVideo = (videoID) => {
-    let theVideoRequested = "none";
+    let theVideoRequested = 'none';
     videosJSON.videos.forEach((video) => {
       if (video.id === videoID) theVideoRequested = video
     })
-    if(theVideoRequested == "none") {alert("Myndband númer " + videoID + " fannst ekki"); return 1}
+    if (theVideoRequested === 'none') { alert(`Myndband númer ${videoID} fannst ekki`); return 1 }
     return theVideoRequested
   }
 
@@ -212,8 +212,8 @@
   const renderVideoMenu = () => {
     const categoryArray = videosJSON.categories
     allVideos = document.createElement('div')
-    const menuHeading     = document.createElement("h1")
-    const menuHeadingText = document.createTextNode("Myndabandaleigan")
+    const menuHeading     = document.createElement('h1')
+    const menuHeadingText = document.createTextNode('Myndabandaleigan')
     menuHeading.appendChild(menuHeadingText)
     const categoryElements = categoryArray.map(category => makeCategory(category.title, category.videos))
 
