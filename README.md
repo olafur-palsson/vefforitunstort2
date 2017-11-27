@@ -10,7 +10,7 @@ Kóðað af:
 
 Þorgeir Sigurðarson - ths222@hi.is
 
-#Install instructions
+# Install instructions
 
 1. Downloada zip
 2. Extracta það
