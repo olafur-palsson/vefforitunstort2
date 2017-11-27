@@ -1,8 +1,6 @@
 # Vefforritun, stórt verkefni 2
 
-Vefforritun 2017, stórt verkefni 2
-Kóðað af:
-
+*Kóðað af:*
 
 Ólafur Pálsson - olp6@hi.is
 
