@@ -4,7 +4,7 @@
 
 Ólafur Pálsson - olp6@hi.is
 
-Ólafur Sverrir Gunnarsson - osg@hi.is
+Ólafur Sverrir Gunnarsson - osg18@hi.is
 
 Þorgeir Sigurðarson - ths222@hi.is
 
